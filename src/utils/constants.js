@@ -2,6 +2,10 @@ export const FILTER_OPTIONS = ["All", "Todo", "In Progress", "Completed"];
 
 export const PRIORITY_OPTIONS = ["Low", "Medium", "High"];
 
+export const PRIORITY_FILTER_OPTIONS = ["All", ...PRIORITY_OPTIONS];
+
+export const SORT_OPTIONS = ["Newest", "Oldest", "Due Date", "Priority"];
+
 export const STATUS_OPTIONS = ["Todo", "In Progress", "Completed"];
 
 export const INITIAL_TASKS = [

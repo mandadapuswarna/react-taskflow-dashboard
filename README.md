@@ -1,36 +1,27 @@
 # 01-taskflow-dashboard
 
-A task management dashboard built with React to demonstrate component composition, reusable UI building blocks, prop-driven rendering, and local state management.
+A task management dashboard built with React. It provides a focused workspace for creating, organizing, finding, editing, and deleting tasks while demonstrating component composition, reusable components, props, state management, custom hooks, and browser persistence.
 
-## Phase 2 — Task Management Features
+## Features
 
-Phase 2 adds complete task management workflows:
+### Task management
 
-- Create a task with required title, description, priority, due date, and status
-- Create-task fields are collapsed by default and open with an animated `+ New task` button
-- Edit every task field from the reusable edit modal
+- Create tasks with a required title, description, priority, due date, and status
+- Open the create-task form with the animated `+ New task` button
+- Edit every task field from a reusable modal form
 - Delete tasks with a confirmation modal
-- Priority options: `Low`, `Medium`, and `High`
-- Status options: `Todo`, `In Progress`, and `Completed`
-- Existing Phase 1 tasks using the old `Done` status are migrated to `Completed`
+- Persist tasks in browser local storage
+- Migrate legacy `Done` statuses to `Completed`
 
-Tasks continue to persist in browser local storage through `useLocalStorage`.
+### Search, filters, and sorting
 
-## Phase 1 — Better Project Structure
+- Search by task title or description
+- Filter by status: `All`, `Todo`, `In Progress`, or `Completed`
+- Filter by priority: `All`, `Low`, `Medium`, or `High`
+- Sort by `Newest`, `Oldest`, `Due Date`, or `Priority`
+- Combine search, filters, and sorting to find relevant tasks quickly
 
-This phase refactors the dashboard into a cleaner component structure:
-
-- `Sidebar` for navigation
-- `Header` for the page header and action button
-- `Dashboard` for stats cards
-- `TaskForm` for creating new tasks
-- `TaskFilters` for status filtering
-- `TaskList` and `TaskCard` for list rendering and item controls
-- `Modal` as a reusable UI pattern
-- `useLocalStorage` hook for persisting task data
-- `constants.js` for shared app data
-
-### Project structure
+## Project structure
 
 ```bash
 src/
@@ -55,22 +46,45 @@ src/
 └── styles.css
 ```
 
-### Features in this phase
+The application is composed from focused components:
 
-- Reusable component architecture
-- Props-based composition
-- Centralized state for tasks and filters
-- Local storage persistence with a custom hook
-- Improved UI structure and maintainability
+- `Sidebar` provides the main navigation
+- `Header` renders the dashboard introduction
+- `Dashboard` displays task statistics
+- `TaskForm` is reused for both task creation and editing
+- `TaskFilters` controls search, status filtering, priority filtering, and sorting
+- `TaskList` renders the visible task collection
+- `TaskCard` displays task details and CRUD actions
+- `Modal` provides reusable edit and delete dialogs
+- `useLocalStorage` persists and normalizes task data
+- `constants.js` centralizes status, priority, sorting, and initial task values
 
-## Run locally
+## State management
+
+`App.jsx` owns the task collection and coordinates the main workflows. Child components receive data and event handlers through props. Derived task results are calculated from the current search query, filters, and sort selection, while task data is persisted through the `useLocalStorage` hook.
+
+## Technologies
+
+- React
+- Vite
+- JavaScript
+- CSS
+
+## Getting started
+
+### Install dependencies
 
 ```bash
 npm install
+```
+
+### Start the development server
+
+```bash
 npm run dev
 ```
 
-## Build
+### Create a production build
 
 ```bash
 npm run build

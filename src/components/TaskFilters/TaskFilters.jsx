@@ -1,16 +1,59 @@
-export default function TaskFilters({ filter, onFilterChange, options }) {
+export default function TaskFilters({
+  searchQuery,
+  onSearchChange,
+  statusFilter,
+  onStatusFilterChange,
+  priorityFilter,
+  onPriorityFilterChange,
+  sortBy,
+  onSortChange,
+  statusOptions,
+  priorityOptions,
+  sortOptions,
+}) {
   return (
-    <div className="filters">
-      {options.map((option) => (
-        <button
-          key={option}
-          type="button"
-          className={filter === option ? "active" : ""}
-          onClick={() => onFilterChange(option)}
-        >
-          {option}
-        </button>
-      ))}
+    <div className="task-filters">
+      <label className="search-field">
+        <span className="sr-only">Search tasks</span>
+        <input
+          type="search"
+          value={searchQuery}
+          onChange={(event) => onSearchChange(event.target.value)}
+          placeholder="Search tasks..."
+        />
+      </label>
+      <div className="filter-controls">
+        <label>
+          Status
+          <select
+            value={statusFilter}
+            onChange={(event) => onStatusFilterChange(event.target.value)}
+          >
+            {statusOptions.map((option) => (
+              <option key={option}>{option}</option>
+            ))}
+          </select>
+        </label>
+        <label>
+          Priority
+          <select
+            value={priorityFilter}
+            onChange={(event) => onPriorityFilterChange(event.target.value)}
+          >
+            {priorityOptions.map((option) => (
+              <option key={option}>{option}</option>
+            ))}
+          </select>
+        </label>
+        <label>
+          Sort by
+          <select value={sortBy} onChange={(event) => onSortChange(event.target.value)}>
+            {sortOptions.map((option) => (
+              <option key={option}>{option}</option>
+            ))}
+          </select>
+        </label>
+      </div>
     </div>
   );
 }

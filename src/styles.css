@@ -193,21 +193,44 @@ button {
   color: #b91c1c;
 }
 
-.filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+.task-filters {
+  display: grid;
+  gap: 14px;
   margin-bottom: 18px;
 }
 
-.filters button {
-  background: #e8edf5;
-  color: #334155;
+.search-field input,
+.filter-controls select {
+  width: 100%;
+  padding: 11px 12px;
+  border: 1px solid #dbe1ea;
+  border-radius: 8px;
+  background: #fff;
 }
 
-.filters .active {
-  background: #2563eb;
-  color: #fff;
+.filter-controls {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.filter-controls label {
+  display: grid;
+  gap: 6px;
+  color: #475569;
+  font-size: 0.85rem;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 .task-list {
@@ -363,6 +386,10 @@ button {
   }
 
   .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .filter-controls {
     grid-template-columns: 1fr;
   }
 }

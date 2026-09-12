@@ -10,7 +10,12 @@ import TaskList from "./components/TaskList/TaskList";
 import Modal from "./components/Modal/Modal";
 
 import { useLocalStorage } from "./hooks/useLocalStorage";
-import { FILTER_OPTIONS, INITIAL_TASKS } from "./utils/constants";
+import {
+  FILTER_OPTIONS,
+  INITIAL_TASKS,
+  PRIORITY_FILTER_OPTIONS,
+  SORT_OPTIONS,
+} from "./utils/constants";
 
 const createEmptyTask = () => ({
   title: "",
@@ -23,7 +28,10 @@ const createEmptyTask = () => ({
 export default function App() {
   const [tasks, setTasks] = useLocalStorage("taskflow-tasks", INITIAL_TASKS);
   const [taskDraft, setTaskDraft] = useState(createEmptyTask);
-  const [filter, setFilter] = useState("All");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [statusFilter, setStatusFilter] = useState("All");
+  const [priorityFilter, setPriorityFilter] = useState("All");
+  const [sortBy, setSortBy] = useState("Newest");
   const [editingTask, setEditingTask] = useState(null);
   const [taskToDelete, setTaskToDelete] = useState(null);
   const [isCreateFormOpen, setIsCreateFormOpen] = useState(false);
@@ -62,10 +70,35 @@ export default function App() {
     setTaskToDelete(null);
   };
 
-  const filteredTasks = useMemo(
-    () => (filter === "All" ? tasks : tasks.filter((task) => task.status === filter)),
-    [filter, tasks],
-  );
+  const visibleTasks = useMemo(() => {
+    const normalizedQuery = searchQuery.trim().toLowerCase();
+    const priorityRank = { Low: 1, Medium: 2, High: 3 };
+
+    const matchingTasks = tasks.filter((task) => {
+      const matchesSearch =
+        !normalizedQuery ||
+        task.title.toLowerCase().includes(normalizedQuery) ||
+        task.description.toLowerCase().includes(normalizedQuery);
+      const matchesStatus = statusFilter === "All" || task.status === statusFilter;
+      const matchesPriority =
+        priorityFilter === "All" || task.priority === priorityFilter;
+
+      return matchesSearch && matchesStatus && matchesPriority;
+    });
+
+    return [...matchingTasks].sort((firstTask, secondTask) => {
+      if (sortBy === "Newest") return secondTask.id - firstTask.id;
+      if (sortBy === "Oldest") return firstTask.id - secondTask.id;
+      if (sortBy === "Priority") {
+        return priorityRank[secondTask.priority] - priorityRank[firstTask.priority];
+      }
+
+      if (!firstTask.dueDate && !secondTask.dueDate) return 0;
+      if (!firstTask.dueDate) return 1;
+      if (!secondTask.dueDate) return -1;
+      return firstTask.dueDate.localeCompare(secondTask.dueDate);
+    });
+  }, [priorityFilter, searchQuery, sortBy, statusFilter, tasks]);
 
   const stats = useMemo(
     () => ({
@@ -91,7 +124,7 @@ export default function App() {
               <h2>Tasks</h2>
             </div>
             <div className="section-actions">
-              <span className="task-count">{filteredTasks.length} shown</span>
+              <span className="task-count">{visibleTasks.length} shown</span>
               <button
                 type="button"
                 className="primary-button new-task-button"
@@ -118,12 +151,20 @@ export default function App() {
             </div>
           </div>
           <TaskFilters
-            filter={filter}
-            onFilterChange={setFilter}
-            options={FILTER_OPTIONS}
+            searchQuery={searchQuery}
+            onSearchChange={setSearchQuery}
+            statusFilter={statusFilter}
+            onStatusFilterChange={setStatusFilter}
+            priorityFilter={priorityFilter}
+            onPriorityFilterChange={setPriorityFilter}
+            sortBy={sortBy}
+            onSortChange={setSortBy}
+            statusOptions={FILTER_OPTIONS}
+            priorityOptions={PRIORITY_FILTER_OPTIONS}
+            sortOptions={SORT_OPTIONS}
           />
           <TaskList
-            tasks={filteredTasks}
+            tasks={visibleTasks}
             onEdit={setEditingTask}
             onDelete={setTaskToDelete}
           />
