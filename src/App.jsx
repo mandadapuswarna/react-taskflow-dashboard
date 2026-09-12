@@ -7,6 +7,7 @@ import Dashboard from "./components/Dashboard/Dashboard";
 import TaskForm from "./components/TaskForm/TaskForm";
 import TaskFilters from "./components/TaskFilters/TaskFilters";
 import TaskList from "./components/TaskList/TaskList";
+import TaskDetails from "./components/TaskDetails/TaskDetails";
 import Modal from "./components/Modal/Modal";
 
 import { useLocalStorage } from "./hooks/useLocalStorage";
@@ -34,6 +35,7 @@ export default function App() {
   const [sortBy, setSortBy] = useState("Newest");
   const [editingTask, setEditingTask] = useState(null);
   const [taskToDelete, setTaskToDelete] = useState(null);
+  const [selectedTask, setSelectedTask] = useState(null);
   const [isCreateFormOpen, setIsCreateFormOpen] = useState(false);
 
   const addTask = (event) => {
@@ -42,7 +44,12 @@ export default function App() {
     if (!taskDraft.title.trim()) return;
 
     setTasks((currentTasks) => [
-      { ...taskDraft, id: Date.now(), title: taskDraft.title.trim() },
+      {
+        ...taskDraft,
+        id: Date.now(),
+        createdAt: new Date().toISOString(),
+        title: taskDraft.title.trim(),
+      },
       ...currentTasks,
     ]);
     setTaskDraft(createEmptyTask());
@@ -172,11 +179,20 @@ export default function App() {
           />
           <TaskList
             tasks={visibleTasks}
+            onView={setSelectedTask}
             onEdit={setEditingTask}
             onDelete={setTaskToDelete}
           />
         </section>
       </main>
+
+      <Modal
+        isOpen={Boolean(selectedTask)}
+        title={selectedTask?.title}
+        onClose={() => setSelectedTask(null)}
+      >
+        {selectedTask && <TaskDetails task={selectedTask} />}
+      </Modal>
 
       <Modal
         isOpen={Boolean(editingTask)}

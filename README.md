@@ -10,6 +10,8 @@ A task management dashboard built with React. It provides a focused workspace fo
 - Open the create-task form with the animated `+ New task` button
 - Edit every task field from a reusable modal form
 - Delete tasks with a confirmation modal
+- Open a task details modal by clicking a task
+- View title, description, priority, status, created date, and due date
 - Persist tasks in browser local storage
 - Migrate legacy `Done` statuses to `Completed`
 

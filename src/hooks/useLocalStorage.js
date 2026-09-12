@@ -9,6 +9,7 @@ export function useLocalStorage(key, initialValue) {
         ? parsedValue.map((task) => ({
             description: "",
             dueDate: "",
+            createdAt: new Date().toISOString(),
             ...task,
             status: task.status === "Done" ? "Completed" : task.status,
           }))

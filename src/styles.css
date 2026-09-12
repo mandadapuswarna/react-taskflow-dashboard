@@ -295,6 +295,14 @@ button {
   gap: 16px;
   padding: 16px 0;
   border-bottom: 1px solid #eef2f6;
+  cursor: pointer;
+  transition: background 180ms ease;
+}
+
+.task-item:hover,
+.task-item:focus-visible {
+  background: #f8fafc;
+  outline: none;
 }
 
 .task-copy {
@@ -367,6 +375,52 @@ button {
 .modal-copy {
   margin: 0 0 20px;
   color: #475569;
+}
+
+.task-details {
+  display: grid;
+  gap: 22px;
+}
+
+.task-detail-description {
+  display: grid;
+  gap: 8px;
+}
+
+.task-detail-description span,
+.task-detail-grid dt {
+  color: #64748b;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.task-detail-description p {
+  margin: 0;
+  color: #334155;
+  line-height: 1.6;
+}
+
+.task-detail-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin: 0;
+}
+
+.task-detail-grid div {
+  display: grid;
+  gap: 6px;
+  padding: 12px;
+  border-radius: 10px;
+  background: #f8fafc;
+}
+
+.task-detail-grid dd {
+  margin: 0;
+  color: #182230;
+  font-weight: 600;
 }
 
 .section-heading {
@@ -444,6 +498,10 @@ button {
   }
 
   .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .task-detail-grid {
     grid-template-columns: 1fr;
   }
 
