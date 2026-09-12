@@ -88,7 +88,7 @@ button {
 
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 18px;
   margin: 30px 0;
 }
@@ -111,6 +111,55 @@ button {
   display: block;
   font-size: 32px;
   margin-top: 8px;
+}
+
+.progress-card {
+  background: #182230;
+  color: #fff;
+  border-radius: 14px;
+  padding: 22px;
+  box-shadow: 0 4px 18px rgba(30, 41, 59, 0.12);
+}
+
+.progress-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 16px;
+}
+
+.progress-heading > div {
+  display: grid;
+  gap: 6px;
+}
+
+.progress-heading span,
+.progress-detail {
+  color: #cbd5e1;
+}
+
+.progress-heading strong {
+  font-size: 1.25rem;
+}
+
+.progress-detail {
+  font-size: 0.85rem;
+  text-align: right;
+}
+
+.progress-track {
+  height: 10px;
+  margin-top: 18px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #334155;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: inherit;
+  background: #60a5fa;
+  transition: width 300ms ease;
 }
 
 .panel {
@@ -363,6 +412,15 @@ button {
 
   .stats-grid {
     grid-template-columns: 1fr;
+  }
+
+  .progress-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .progress-detail {
+    text-align: left;
   }
 
   .topbar {

@@ -1,4 +1,4 @@
-# 01-taskflow-dashboard
+# react-taskflow-dashboard
 
 A task management dashboard built with React. It provides a focused workspace for creating, organizing, finding, editing, and deleting tasks while demonstrating component composition, reusable components, props, state management, custom hooks, and browser persistence.
 
@@ -20,6 +20,13 @@ A task management dashboard built with React. It provides a focused workspace fo
 - Filter by priority: `All`, `Low`, `Medium`, or `High`
 - Sort by `Newest`, `Oldest`, `Due Date`, or `Priority`
 - Combine search, filters, and sorting to find relevant tasks quickly
+
+### Dashboard statistics
+
+- Display total task count
+- Display completed, in-progress, and todo task counts
+- Calculate completion percentage automatically
+- Show completion percentage with an animated progress bar
 
 ## Project structure
 

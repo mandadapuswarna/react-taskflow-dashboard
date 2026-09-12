@@ -101,11 +101,18 @@ export default function App() {
   }, [priorityFilter, searchQuery, sortBy, statusFilter, tasks]);
 
   const stats = useMemo(
-    () => ({
-      total: tasks.length,
-      done: tasks.filter((task) => task.status === "Completed").length,
-      inProgress: tasks.filter((task) => task.status === "In Progress").length,
-    }),
+    () => {
+      const total = tasks.length;
+      const completed = tasks.filter((task) => task.status === "Completed").length;
+
+      return {
+        total,
+        completed,
+        inProgress: tasks.filter((task) => task.status === "In Progress").length,
+        todo: tasks.filter((task) => task.status === "Todo").length,
+        completionPercentage: total ? Math.round((completed / total) * 100) : 0,
+      };
+    },
     [tasks],
   );
 
