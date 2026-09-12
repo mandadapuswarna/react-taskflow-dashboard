@@ -1,20 +1,24 @@
-export default function TaskCard({ task, onStatusChange }) {
+export default function TaskCard({ task, onEdit, onDelete }) {
   return (
     <article className="task-item">
       <div className="task-copy">
         <strong>{task.title}</strong>
-        <small>{task.priority} priority</small>
+        {task.description && <p>{task.description}</p>}
+        <small>
+          {task.priority} priority{task.dueDate ? ` · Due ${task.dueDate}` : ""}
+        </small>
       </div>
-
-      <select
-        value={task.status}
-        onChange={(event) => onStatusChange(task.id, event.target.value)}
-        aria-label={`Update status for ${task.title}`}
-      >
-        <option value="Todo">Todo</option>
-        <option value="In Progress">In Progress</option>
-        <option value="Done">Done</option>
-      </select>
+      <div className="task-actions">
+        <span className={`status status-${task.status.toLowerCase().replace(" ", "-")}`}>
+          {task.status}
+        </span>
+        <button type="button" className="secondary-button" onClick={() => onEdit(task)}>
+          Edit
+        </button>
+        <button type="button" className="danger-button" onClick={() => onDelete(task)}>
+          Delete
+        </button>
+      </div>
     </article>
   );
 }

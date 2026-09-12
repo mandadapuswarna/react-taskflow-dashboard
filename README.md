@@ -2,6 +2,20 @@
 
 A task management dashboard built with React to demonstrate component composition, reusable UI building blocks, prop-driven rendering, and local state management.
 
+## Phase 2 — Task Management Features
+
+Phase 2 adds complete task management workflows:
+
+- Create a task with required title, description, priority, due date, and status
+- Create-task fields are collapsed by default and open with an animated `+ New task` button
+- Edit every task field from the reusable edit modal
+- Delete tasks with a confirmation modal
+- Priority options: `Low`, `Medium`, and `High`
+- Status options: `Todo`, `In Progress`, and `Completed`
+- Existing Phase 1 tasks using the old `Done` status are migrated to `Completed`
+
+Tasks continue to persist in browser local storage through `useLocalStorage`.
+
 ## Phase 1 — Better Project Structure
 
 This phase refactors the dashboard into a cleaner component structure:

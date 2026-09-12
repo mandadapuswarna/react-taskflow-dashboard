@@ -4,7 +4,15 @@ export function useLocalStorage(key, initialValue) {
   const [value, setValue] = useState(() => {
     try {
       const storedValue = window.localStorage.getItem(key);
-      return storedValue ? JSON.parse(storedValue) : initialValue;
+      const parsedValue = storedValue ? JSON.parse(storedValue) : initialValue;
+      return Array.isArray(parsedValue)
+        ? parsedValue.map((task) => ({
+            description: "",
+            dueDate: "",
+            ...task,
+            status: task.status === "Done" ? "Completed" : task.status,
+          }))
+        : parsedValue;
     } catch (error) {
       console.error("Unable to read from localStorage:", error);
       return initialValue;
