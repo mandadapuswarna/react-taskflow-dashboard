@@ -255,14 +255,17 @@ export default function App() {
       <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
 
       <main className="main-content">
-        <button
-          type="button"
-          className="menu-button"
-          aria-label="Open navigation"
-          onClick={() => setIsSidebarOpen(true)}
-        >
-          <span aria-hidden="true">☰</span>
-        </button>
+        <div className="mobile-app-bar">
+          <button
+            type="button"
+            className="menu-button"
+            aria-label="Open navigation"
+            onClick={() => setIsSidebarOpen(true)}
+          >
+            <span aria-hidden="true">☰</span>
+          </button>
+          <span className="mobile-brand">TaskFlow</span>
+        </div>
         <Routes>
           <Route path="/" element={<DashboardPage tasks={tasks} stats={stats} />} />
           <Route
@@ -318,7 +321,6 @@ export default function App() {
                 onClearTasks={clearAllTasks}
                 onResetData={resetApplicationData}
                 priorityOptions={PRIORITY_OPTIONS}
-                onNotify={setToastMessage}
               />
             }
           />
