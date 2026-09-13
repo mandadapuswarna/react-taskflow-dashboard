@@ -1,93 +1,181 @@
-# react-taskflow-dashboard
+# TaskFlow Dashboard
 
-A task management dashboard built with React. It provides a focused workspace for creating, organizing, finding, editing, and deleting tasks while demonstrating component composition, reusable components, props, state management, custom hooks, and browser persistence.
+A responsive task and project management application built with React.
+
+TaskFlow provides a focused workspace for creating, organizing, searching, filtering, editing, and managing tasks and projects. The application demonstrates practical React concepts including component composition, reusable components, state management, custom hooks, client-side routing, browser persistence, and responsive UI design.
 
 ## Features
 
-### Task management
+### Task Management
 
-- Create tasks with a required title, description, priority, due date, and status
-- Open the create-task form with the animated `+ New task` button
-- Edit every task field from a reusable modal form
-- Delete tasks with a confirmation modal
-- Open a task details modal by clicking a task
-- View title, description, priority, status, created date, and due date
-- Persist tasks in browser `localStorage` after every create, edit, and delete
-- Restore saved tasks automatically after a page refresh
-- Synchronize task changes across browser tabs using the `storage` event
-- Migrate legacy `Done` statuses to `Completed`
+* Create tasks with a required title, description, priority, due date, status, and optional project
+* Edit task details using a reusable modal form
+* Delete tasks with a confirmation modal
+* View complete task information in a task details modal
+* View task title, description, priority, status, project, created date, and due date
+* Manage tasks from a dedicated Tasks workspace
 
-### Project management
+### Project Management
 
-- Create projects with a name, description, and status
-- View the saved project list
-- Edit project details
-- Delete projects with confirmation
-- Persist projects automatically in browser `localStorage`
-- Project statuses: `Planning`, `Active`, and `Completed`
+* Create projects with a name, description, and status
+* View all saved projects
+* Edit project details
+* Delete projects with confirmation
+* Track project status:
 
-### Task and project relationships
+  * Planning
+  * Active
+  * Completed
+* Persist projects automatically using browser `localStorage`
 
-- Assign a task to `No Project` or any saved project while creating or editing it
-- Show the assigned project on task cards
-- Filter tasks by `All Projects` or a specific project
-- Calculate each project's task count dynamically
-- Keep tasks when a project is deleted and reset their `projectId` to `null`
+### Task and Project Relationships
 
-### Search, filters, and sorting
+* Assign tasks to a project or select `No Project`
+* Update project assignments while editing tasks
+* Display the assigned project on task cards
+* Filter tasks by project
+* Calculate project task counts dynamically
+* Preserve tasks when a project is deleted by resetting their `projectId` to `null`
 
-- Search by task title or description
-- Filter by status: `All`, `Todo`, `In Progress`, or `Completed`
-- Filter by priority: `All`, `Low`, `Medium`, or `High`
-- Sort by `Newest`, `Oldest`, `Due Date`, or `Priority`
-- Combine search, filters, and sorting to find relevant tasks quickly
+### Search, Filters, and Sorting
 
-### Empty states
+* Search tasks by title or description
+* Filter tasks by status:
 
-- Show a friendly empty state when no tasks exist
-- Provide a `+ New task` action to start the workspace
-- Explain when a search returns no results
-- Explain when selected status or priority filters match no tasks
+  * All
+  * Todo
+  * In Progress
+  * Completed
+* Filter tasks by priority:
 
-### Dashboard statistics
+  * All
+  * Low
+  * Medium
+  * High
+* Filter tasks by project
+* Sort tasks by:
 
-- Display total task count
-- Display completed, in-progress, and todo task counts
-- Calculate completion percentage automatically
-- Show completion percentage with an animated progress bar
+  * Newest
+  * Oldest
+  * Due Date
+  * Priority
+* Combine search, filters, and sorting to quickly find relevant tasks
 
-### Responsive design
+### Dashboard
 
-- Mobile navigation collapses into an off-canvas sidebar at widths below `768px`
-- Search and filter controls adapt from three columns to two columns and then one column
-- Task cards stack their content and actions on small screens
-- Modals remain contained within the viewport and scroll vertically when needed
-- The layout is designed for mobile `375px`, tablet `768px`, and desktop `1440px` viewports
-
-### Professional feedback
-
-- Show `Loading your tasks...` briefly while the application starts
-- Display auto-dismissing toast notifications after task creation, updates, and deletion
-- Allow toast notifications to be dismissed manually
+* View total task count
+* View Todo task count
+* View In Progress task count
+* View Completed task count
+* Automatically calculate task completion percentage
+* Display progress using an animated progress bar
+* View recent tasks directly from the Dashboard
 
 ### Navigation
 
-- `/` renders the Dashboard with statistics and recent tasks
-- `/tasks` renders the full task-management workspace
-- `/projects` provides the Projects destination
-- `/settings` provides the Settings destination
-- Sidebar links use React Router and show the active route
+TaskFlow uses React Router for client-side navigation.
+
+| Route       | Description                                     |
+| ----------- | ----------------------------------------------- |
+| `/`         | Dashboard with task statistics and recent tasks |
+| `/tasks`    | Full task management workspace                  |
+| `/projects` | Project management workspace                    |
+| `/settings` | Application preferences and data management     |
+
+The sidebar highlights the currently active route.
+
+### Browser Persistence
+
+* Persist tasks using browser `localStorage`
+* Restore saved tasks after page refresh
+* Persist project data
+* Persist application settings
+* Synchronize task changes across browser tabs using the `storage` event
+* Normalize legacy task data by migrating `Done` statuses to `Completed`
 
 ### Settings
 
-- Persist a Light mode, Dark mode, or System preference theme
-- Choose the default priority for newly created tasks
-- Clear all tasks with confirmation
-- Reset tasks, projects, and settings with confirmation
+* Choose between:
 
-## Project structure
+  * Light mode
+  * Dark mode
+  * System preference
+* Configure the default priority for newly created tasks
+* Clear all tasks with confirmation
+* Reset application data, including tasks, projects, and settings
 
-```bash
+### Empty States
+
+* Display a friendly empty state when no tasks exist
+* Provide a `+ New Task` action to create the first task
+* Display contextual messaging when search results are empty
+* Explain when selected filters return no matching tasks
+* Provide helpful actions to recover from empty states
+
+### User Feedback
+
+* Display an initial loading state when the application starts
+* Show toast notifications after successful actions
+* Automatically dismiss toast notifications
+* Allow toast notifications to be dismissed manually
+* Use confirmation dialogs before destructive actions
+
+### Responsive Design
+
+The application is designed and tested for multiple screen sizes.
+
+* Mobile: `375px`
+* Tablet: `768px`
+* Desktop: `1440px`
+
+Responsive behavior includes:
+
+* Mobile off-canvas sidebar navigation
+* Adaptive search and filter layouts
+* Responsive dashboard statistics
+* Mobile-friendly task cards
+* Responsive forms and controls
+* Viewport-contained modals with vertical scrolling when required
+
+---
+
+## Technologies
+
+* React
+* Vite
+* JavaScript
+* CSS
+* React Router
+* Browser `localStorage`
+
+---
+
+## Key React Concepts Demonstrated
+
+This project demonstrates practical usage of:
+
+* Functional components
+* Component composition
+* Reusable components
+* Props
+* State management
+* Derived state
+* Custom hooks
+* `useState`
+* `useEffect`
+* `useMemo`
+* Client-side routing with React Router
+* Controlled forms
+* Conditional rendering
+* List rendering
+* Event handling
+* Browser `localStorage`
+
+---
+
+## Project Structure
+
+```text
 src/
 ├── components/
 │   ├── Sidebar/
@@ -99,6 +187,7 @@ src/
 │   ├── TaskFilters/
 │   ├── Modal/
 │   └── ProjectForm/
+│
 ├── pages/
 │   ├── DashboardPage.jsx
 │   ├── TasksPage.jsx
@@ -116,51 +205,95 @@ src/
 └── styles.css
 ```
 
-The application is composed from focused components:
+### Component Overview
 
-- `Sidebar` provides the main navigation
-- `Header` renders the dashboard introduction
-- `Dashboard` displays task statistics
-- `TaskForm` is reused for both task creation and editing
-- `TaskFilters` controls search, status filtering, priority filtering, and sorting
-- `TaskList` renders the visible task collection
-- `EmptyState` provides contextual empty-workspace and no-results messaging
-- `TaskCard` displays task details and CRUD actions
-- `ProjectForm` supports project creation and editing
-- `Modal` provides reusable edit and delete dialogs
-- `Toast` provides reusable success notifications
-- `useLocalStorage` persists, restores, normalizes, and synchronizes task data
-- `constants.js` centralizes status, priority, sorting, and initial task values
-- Page components define the routed Dashboard, Tasks, Projects, and Settings views
+* `Sidebar` — Main application navigation
+* `Header` — Page introduction and contextual headings
+* `Dashboard` — Task statistics, progress, and recent tasks
+* `TaskForm` — Reusable form for creating and editing tasks
+* `TaskFilters` — Search, filtering, and sorting controls
+* `TaskList` — Renders the visible task collection
+* `TaskCard` — Displays task information and actions
+* `ProjectForm` — Supports project creation and editing
+* `EmptyState` — Displays contextual empty workspace and no-results states
+* `Modal` — Reusable modal for forms, details, and confirmation dialogs
+* `Toast` — Displays reusable success notifications
+* `useLocalStorage` — Persists, restores, normalizes, and synchronizes application data
+* `constants.js` — Centralizes application constants and initial values
+* Page components — Define the routed Dashboard, Tasks, Projects, and Settings views
 
-## State management
+---
 
-`App.jsx` owns the task collection and coordinates the main workflows. Child components receive data and event handlers through props. Derived task results are calculated from the current search query, filters, and sort selection, while task data is persisted through the `useLocalStorage` hook.
+## State Management
 
-## Technologies
+The application uses React's built-in state management with component state and props.
 
-- React
-- Vite
-- JavaScript
-- CSS
-- React Router
+The main application coordinates shared workflows and passes data and event handlers to child components through props.
 
-## Getting started
+Derived task results are calculated from:
 
-### Install dependencies
+* Search queries
+* Status filters
+* Priority filters
+* Project filters
+* Sorting selections
+
+Application data is persisted using a reusable `useLocalStorage` custom hook.
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+Make sure you have Node.js installed.
+
+### Install Dependencies
 
 ```bash
 npm install
 ```
 
-### Start the development server
+### Start the Development Server
 
 ```bash
 npm run dev
 ```
 
-### Create a production build
+The application will start on a local development server.
+
+### Create a Production Build
 
 ```bash
 npm run build
 ```
+
+The production-ready files will be generated in the `dist` directory.
+
+---
+
+## Future Improvements
+
+Potential future enhancements include:
+
+* User authentication
+* Backend API integration
+* Cloud-based data persistence
+* Task deadlines and reminders
+* Drag-and-drop task management
+* Project-specific dashboards
+* Task labels and tags
+* Team collaboration
+* User roles and permissions
+
+---
+
+## Live Demo
+
+Coming soon.
+
+---
+
+## Author
+
+Built as a React portfolio project demonstrating practical frontend development concepts and modern React application architecture.
