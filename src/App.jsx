@@ -37,6 +37,7 @@ export default function App() {
   const [taskToDelete, setTaskToDelete] = useState(null);
   const [selectedTask, setSelectedTask] = useState(null);
   const [isCreateFormOpen, setIsCreateFormOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const addTask = (event) => {
     event.preventDefault();
@@ -151,10 +152,10 @@ export default function App() {
 
   return (
     <div className="app-shell">
-      <Sidebar />
+      <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
 
       <main className="main-content">
-        <Header />
+        <Header onMenuToggle={() => setIsSidebarOpen(true)} />
         <Dashboard stats={stats} />
 
         <section className="panel">

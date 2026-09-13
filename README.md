@@ -39,6 +39,14 @@ A task management dashboard built with React. It provides a focused workspace fo
 - Calculate completion percentage automatically
 - Show completion percentage with an animated progress bar
 
+### Responsive design
+
+- Mobile navigation collapses into an off-canvas sidebar at widths below `768px`
+- Search and filter controls adapt from three columns to two columns and then one column
+- Task cards stack their content and actions on small screens
+- Modals remain contained within the viewport and scroll vertically when needed
+- The layout is designed for mobile `375px`, tablet `768px`, and desktop `1440px` viewports
+
 ## Project structure
 
 ```bash
