@@ -47,6 +47,12 @@ A task management dashboard built with React. It provides a focused workspace fo
 - Modals remain contained within the viewport and scroll vertically when needed
 - The layout is designed for mobile `375px`, tablet `768px`, and desktop `1440px` viewports
 
+### Professional feedback
+
+- Show `Loading your tasks...` briefly while the application starts
+- Display auto-dismissing toast notifications after task creation, updates, and deletion
+- Allow toast notifications to be dismissed manually
+
 ## Project structure
 
 ```bash
@@ -83,6 +89,7 @@ The application is composed from focused components:
 - `EmptyState` provides contextual empty-workspace and no-results messaging
 - `TaskCard` displays task details and CRUD actions
 - `Modal` provides reusable edit and delete dialogs
+- `Toast` provides reusable success notifications
 - `useLocalStorage` persists, restores, normalizes, and synchronizes task data
 - `constants.js` centralizes status, priority, sorting, and initial task values
 

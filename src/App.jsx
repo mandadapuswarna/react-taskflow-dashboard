@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import "./styles.css";
 
 import Sidebar from "./components/Sidebar/Sidebar";
@@ -9,6 +9,7 @@ import TaskFilters from "./components/TaskFilters/TaskFilters";
 import TaskList from "./components/TaskList/TaskList";
 import TaskDetails from "./components/TaskDetails/TaskDetails";
 import Modal from "./components/Modal/Modal";
+import Toast from "./components/Toast/Toast";
 
 import { useLocalStorage } from "./hooks/useLocalStorage";
 import {
@@ -38,6 +39,22 @@ export default function App() {
   const [selectedTask, setSelectedTask] = useState(null);
   const [isCreateFormOpen, setIsCreateFormOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [toastMessage, setToastMessage] = useState("");
+
+  useEffect(() => {
+    const loadingTimer = window.setTimeout(() => setIsLoading(false), 600);
+
+    return () => window.clearTimeout(loadingTimer);
+  }, []);
+
+  useEffect(() => {
+    if (!toastMessage) return undefined;
+
+    const toastTimer = window.setTimeout(() => setToastMessage(""), 3000);
+
+    return () => window.clearTimeout(toastTimer);
+  }, [toastMessage]);
 
   const addTask = (event) => {
     event.preventDefault();
@@ -55,6 +72,7 @@ export default function App() {
     ]);
     setTaskDraft(createEmptyTask());
     setIsCreateFormOpen(false);
+    setToastMessage("Task created successfully");
   };
 
   const saveTask = (event) => {
@@ -69,6 +87,7 @@ export default function App() {
       ),
     );
     setEditingTask(null);
+    setToastMessage("Task updated successfully");
   };
 
   const deleteTask = () => {
@@ -76,6 +95,7 @@ export default function App() {
       currentTasks.filter((task) => task.id !== taskToDelete.id),
     );
     setTaskToDelete(null);
+    setToastMessage("Task deleted successfully");
   };
 
   const visibleTasks = useMemo(() => {
@@ -149,6 +169,15 @@ export default function App() {
     },
     [tasks],
   );
+
+  if (isLoading) {
+    return (
+      <div className="loading-screen" role="status" aria-live="polite">
+        <div className="loading-spinner" aria-hidden="true" />
+        <p>Loading your tasks...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="app-shell">
@@ -257,6 +286,8 @@ export default function App() {
           </button>
         </div>
       </Modal>
+
+      <Toast message={toastMessage} onClose={() => setToastMessage("")} />
     </div>
   );
 }
