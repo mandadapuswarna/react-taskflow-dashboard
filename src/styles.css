@@ -288,6 +288,36 @@ button {
   gap: 12px;
 }
 
+.empty-state {
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  padding: 56px 20px 42px;
+  text-align: center;
+}
+
+.empty-state-icon {
+  display: grid;
+  width: 56px;
+  height: 56px;
+  place-items: center;
+  border-radius: 50%;
+  background: #e8edf5;
+  font-size: 1.7rem;
+}
+
+.empty-state h3 {
+  margin: 8px 0 0;
+  color: #182230;
+  font-size: 1.15rem;
+}
+
+.empty-state p {
+  max-width: 320px;
+  margin: 0 0 8px;
+  color: #64748b;
+}
+
 .task-item {
   display: flex;
   justify-content: space-between;

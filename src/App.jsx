@@ -107,6 +107,32 @@ export default function App() {
     });
   }, [priorityFilter, searchQuery, sortBy, statusFilter, tasks]);
 
+  const hasSearch = Boolean(searchQuery.trim());
+  const hasFilters = statusFilter !== "All" || priorityFilter !== "All";
+  const emptyState = tasks.length === 0
+    ? {
+        title: "No tasks found",
+        message: "Create your first task to get started.",
+        actionLabel: "+ New task",
+        onAction: () => setIsCreateFormOpen(true),
+      }
+    : hasSearch
+      ? {
+          title: "No search results",
+          message: "Try a different search term.",
+        }
+      : hasFilters
+        ? {
+            title: "No tasks match these filters",
+            message: "Try changing the selected status or priority.",
+          }
+        : {
+            title: "No tasks found",
+            message: "Create your first task to get started.",
+            actionLabel: "+ New task",
+            onAction: () => setIsCreateFormOpen(true),
+          };
+
   const stats = useMemo(
     () => {
       const total = tasks.length;
@@ -182,6 +208,7 @@ export default function App() {
             onView={setSelectedTask}
             onEdit={setEditingTask}
             onDelete={setTaskToDelete}
+            emptyState={emptyState}
           />
         </section>
       </main>

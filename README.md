@@ -25,6 +25,13 @@ A task management dashboard built with React. It provides a focused workspace fo
 - Sort by `Newest`, `Oldest`, `Due Date`, or `Priority`
 - Combine search, filters, and sorting to find relevant tasks quickly
 
+### Empty states
+
+- Show a friendly empty state when no tasks exist
+- Provide a `+ New task` action to start the workspace
+- Explain when a search returns no results
+- Explain when selected status or priority filters match no tasks
+
 ### Dashboard statistics
 
 - Display total task count
@@ -65,6 +72,7 @@ The application is composed from focused components:
 - `TaskForm` is reused for both task creation and editing
 - `TaskFilters` controls search, status filtering, priority filtering, and sorting
 - `TaskList` renders the visible task collection
+- `EmptyState` provides contextual empty-workspace and no-results messaging
 - `TaskCard` displays task details and CRUD actions
 - `Modal` provides reusable edit and delete dialogs
 - `useLocalStorage` persists, restores, normalizes, and synchronizes task data
