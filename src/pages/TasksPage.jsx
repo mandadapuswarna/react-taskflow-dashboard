@@ -29,8 +29,9 @@ export default function TasksPage({
     <>
       <header className="page-heading">
         <div>
-          <h1>Tasks</h1>
-          <p className="subtitle">Plan, prioritize, and track your team's work.</p>
+          <p className="eyebrow">Task Management</p>
+          <h1>My Tasks</h1>
+          <p className="subtitle">Manage and organize all your tasks in one place.</p>
         </div>
         <div className="section-actions">
           <span className="task-count">{visibleTasks.length} shown</span>

@@ -3,7 +3,6 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import "./styles.css";
 
 import Sidebar from "./components/Sidebar/Sidebar";
-import Header from "./components/Header/Header";
 import TaskDetails from "./components/TaskDetails/TaskDetails";
 import Modal from "./components/Modal/Modal";
 import Toast from "./components/Toast/Toast";
@@ -185,7 +184,14 @@ export default function App() {
       <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
 
       <main className="main-content">
-        <Header onMenuToggle={() => setIsSidebarOpen(true)} />
+        <button
+          type="button"
+          className="menu-button"
+          aria-label="Open navigation"
+          onClick={() => setIsSidebarOpen(true)}
+        >
+          <span aria-hidden="true">☰</span>
+        </button>
         <Routes>
           <Route path="/" element={<DashboardPage tasks={tasks} stats={stats} />} />
           <Route

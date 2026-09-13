@@ -7,9 +7,9 @@ export default function DashboardPage({ tasks, stats }) {
     <>
       <header className="page-heading">
         <div>
-          <p className="eyebrow">Overview</p>
+          <p className="eyebrow">Welcome back</p>
           <h1>Good morning 👋</h1>
-          <p className="subtitle">Here is what is happening across your workspace.</p>
+          <p className="subtitle">Here's an overview of your tasks and progress.</p>
         </div>
       </header>
       <Dashboard stats={stats} />

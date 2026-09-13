@@ -1,9 +1,9 @@
 export default function SettingsPage() {
   return (
     <section className="panel route-placeholder">
-      <p className="eyebrow">Preferences</p>
-      <h1>Settings</h1>
-      <p className="subtitle">Workspace preferences and task defaults will live here.</p>
+      <p className="eyebrow">Settings</p>
+      <h1>Customize your experience</h1>
+      <p className="subtitle">Manage your application preferences and settings.</p>
       <div className="settings-row">
         <span>Default task priority</span>
         <strong>Medium</strong>
