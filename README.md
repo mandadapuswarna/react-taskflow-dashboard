@@ -290,7 +290,7 @@ Potential future enhancements include:
 
 ## Live Demo
 
-Coming soon.
+🔗 https://soft-madeleine-77f356.netlify.app/
 
 ---
 
