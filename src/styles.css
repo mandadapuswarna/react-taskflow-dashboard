@@ -295,6 +295,32 @@ button {
   border-radius: 8px;
 }
 
+.project-form {
+  display: grid;
+  gap: 14px;
+  margin: 16px 0;
+}
+
+.project-form label {
+  display: grid;
+  gap: 6px;
+  color: #475569;
+  font-size: 0.85rem;
+}
+
+.project-form input,
+.project-form textarea,
+.project-form select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #dbe1ea;
+  border-radius: 8px;
+}
+
+.project-form textarea {
+  resize: vertical;
+}
+
 .task-form textarea {
   resize: vertical;
 }
@@ -374,6 +400,43 @@ button {
   display: flex;
   flex-direction: column;
   gap: 12px;
+}
+
+.project-list {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.project-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  padding: 18px 0;
+  border-bottom: 1px solid #eef2f6;
+}
+
+.project-card-copy {
+  min-width: 0;
+}
+
+.project-card-title {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.project-card-title h3 {
+  margin: 0;
+  color: #182230;
+}
+
+.project-card-copy p {
+  margin: 8px 0 0;
+  color: #64748b;
+  overflow-wrap: anywhere;
 }
 
 .empty-state {
@@ -727,6 +790,11 @@ button {
   .task-item {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .project-card {
+    align-items: flex-start;
+    flex-direction: column;
   }
 
   .section-heading {

@@ -17,6 +17,15 @@ A task management dashboard built with React. It provides a focused workspace fo
 - Synchronize task changes across browser tabs using the `storage` event
 - Migrate legacy `Done` statuses to `Completed`
 
+### Project management
+
+- Create projects with a name, description, and status
+- View the saved project list
+- Edit project details
+- Delete projects with confirmation
+- Persist projects automatically in browser `localStorage`
+- Project statuses: `Planning`, `Active`, and `Completed`
+
 ### Search, filters, and sorting
 
 - Search by task title or description
@@ -73,7 +82,8 @@ src/
 │   ├── TaskCard/
 │   ├── TaskForm/
 │   ├── TaskFilters/
-│   └── Modal/
+│   ├── Modal/
+│   └── ProjectForm/
 ├── pages/
 │   ├── DashboardPage.jsx
 │   ├── TasksPage.jsx
@@ -101,6 +111,7 @@ The application is composed from focused components:
 - `TaskList` renders the visible task collection
 - `EmptyState` provides contextual empty-workspace and no-results messaging
 - `TaskCard` displays task details and CRUD actions
+- `ProjectForm` supports project creation and editing
 - `Modal` provides reusable edit and delete dialogs
 - `Toast` provides reusable success notifications
 - `useLocalStorage` persists, restores, normalizes, and synchronizes task data

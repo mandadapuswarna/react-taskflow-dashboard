@@ -222,7 +222,7 @@ export default function App() {
               />
             }
           />
-          <Route path="/projects" element={<ProjectsPage />} />
+          <Route path="/projects" element={<ProjectsPage onNotify={setToastMessage} />} />
           <Route path="/settings" element={<SettingsPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

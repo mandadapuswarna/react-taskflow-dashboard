@@ -8,6 +8,10 @@ export const SORT_OPTIONS = ["Newest", "Oldest", "Due Date", "Priority"];
 
 export const STATUS_OPTIONS = ["Todo", "In Progress", "Completed"];
 
+export const PROJECT_STATUS_OPTIONS = ["Planning", "Active", "Completed"];
+
+export const INITIAL_PROJECTS = [];
+
 export const INITIAL_TASKS = [
   {
     id: 1,
