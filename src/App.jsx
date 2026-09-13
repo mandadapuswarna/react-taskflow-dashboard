@@ -14,18 +14,20 @@ import SettingsPage from "./pages/SettingsPage";
 import { useLocalStorage } from "./hooks/useLocalStorage";
 import {
   FILTER_OPTIONS,
+  DEFAULT_SETTINGS,
   INITIAL_TASKS,
   INITIAL_PROJECTS,
+  PRIORITY_OPTIONS,
   PRIORITY_FILTER_OPTIONS,
   PROJECT_FILTER_ALL,
   SORT_OPTIONS,
 } from "./utils/constants";
 import TaskForm from "./components/TaskForm/TaskForm";
 
-const createEmptyTask = () => ({
+const createEmptyTask = (defaultPriority = "Medium") => ({
   title: "",
   description: "",
-  priority: "Medium",
+  priority: defaultPriority,
   dueDate: "",
   status: "Todo",
   projectId: null,
@@ -34,7 +36,8 @@ const createEmptyTask = () => ({
 export default function App() {
   const [tasks, setTasks] = useLocalStorage("taskflow-tasks", INITIAL_TASKS);
   const [projects, setProjects] = useLocalStorage("taskflow-projects", INITIAL_PROJECTS);
-  const [taskDraft, setTaskDraft] = useState(createEmptyTask);
+  const [settings, setSettings] = useLocalStorage("taskflow-settings", DEFAULT_SETTINGS);
+  const [taskDraft, setTaskDraft] = useState(() => createEmptyTask(settings.defaultPriority));
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
   const [priorityFilter, setPriorityFilter] = useState("All");
@@ -47,6 +50,9 @@ export default function App() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [toastMessage, setToastMessage] = useState("");
+  const [systemTheme, setSystemTheme] = useState(() =>
+    window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light",
+  );
 
   useEffect(() => {
     const loadingTimer = window.setTimeout(() => setIsLoading(false), 600);
@@ -61,6 +67,18 @@ export default function App() {
 
     return () => window.clearTimeout(toastTimer);
   }, [toastMessage]);
+
+  useEffect(() => {
+    if (settings.theme !== "system") return undefined;
+
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+    const handleThemeChange = (event) => setSystemTheme(event.matches ? "dark" : "light");
+
+    setSystemTheme(mediaQuery.matches ? "dark" : "light");
+    mediaQuery.addEventListener("change", handleThemeChange);
+
+    return () => mediaQuery.removeEventListener("change", handleThemeChange);
+  }, [settings.theme]);
 
   const addTask = (event) => {
     event.preventDefault();
@@ -115,6 +133,35 @@ export default function App() {
           : task,
       ),
     );
+  };
+
+  const updateSettings = (nextSettings) => {
+    setSettings(nextSettings);
+    setTaskDraft((currentDraft) =>
+      currentDraft.title.trim()
+        ? currentDraft
+        : { ...currentDraft, priority: nextSettings.defaultPriority },
+    );
+  };
+
+  const clearAllTasks = () => {
+    setTasks([]);
+    setSelectedTask(null);
+    setEditingTask(null);
+    setTaskToDelete(null);
+    setToastMessage("All tasks cleared successfully");
+  };
+
+  const resetApplicationData = () => {
+    setTasks([]);
+    setProjects([]);
+    setSettings(DEFAULT_SETTINGS);
+    setTaskDraft(createEmptyTask(DEFAULT_SETTINGS.defaultPriority));
+    setProjectFilter(PROJECT_FILTER_ALL);
+    setSelectedTask(null);
+    setEditingTask(null);
+    setTaskToDelete(null);
+    setToastMessage("Application data reset successfully");
   };
 
   const visibleTasks = useMemo(() => {
@@ -204,7 +251,7 @@ export default function App() {
   }
 
   return (
-    <div className="app-shell">
+    <div className={`app-shell theme-${settings.theme === "system" ? systemTheme : settings.theme}`}>
       <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
 
       <main className="main-content">
@@ -261,7 +308,20 @@ export default function App() {
               />
             }
           />
-          <Route path="/settings" element={<SettingsPage />} />
+          <Route
+            path="/settings"
+            element={
+              <SettingsPage
+                settings={settings}
+                onSettingsChange={updateSettings}
+                taskCount={tasks.length}
+                onClearTasks={clearAllTasks}
+                onResetData={resetApplicationData}
+                priorityOptions={PRIORITY_OPTIONS}
+                onNotify={setToastMessage}
+              />
+            }
+          />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>

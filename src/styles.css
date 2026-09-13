@@ -254,6 +254,143 @@ button {
   margin-bottom: 24px;
 }
 
+.settings-panel {
+  display: grid;
+  gap: 0;
+  margin-top: 30px;
+}
+
+.settings-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding: 22px 0;
+  border-bottom: 1px solid #eef2f6;
+}
+
+.settings-section:first-child {
+  padding-top: 0;
+}
+
+.settings-section:last-child {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+.settings-section h2 {
+  margin: 0;
+  font-size: 1.05rem;
+}
+
+.settings-section .muted-copy {
+  margin: 7px 0 0;
+}
+
+.settings-control {
+  display: grid;
+  min-width: 190px;
+  gap: 6px;
+  color: #475569;
+  font-size: 0.85rem;
+}
+
+.settings-control select {
+  padding: 10px 12px;
+  border: 1px solid #dbe1ea;
+  border-radius: 8px;
+  background: #fff;
+  color: #182230;
+}
+
+.settings-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.danger-outline-button {
+  border: 1px solid #fecaca;
+  background: #fff;
+  color: #b91c1c;
+}
+
+.theme-dark,
+.theme-system {
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.theme-dark .panel,
+.theme-dark .stat-card,
+.theme-system .panel,
+.theme-system .stat-card {
+  background: #1e293b;
+  color: #e2e8f0;
+}
+
+.theme-dark .subtitle,
+.theme-dark .muted-copy,
+.theme-dark .task-count,
+.theme-system .subtitle,
+.theme-system .muted-copy,
+.theme-system .task-count {
+  color: #94a3b8;
+}
+
+.theme-dark .settings-section,
+.theme-dark .task-item,
+.theme-dark .project-card,
+.theme-system .settings-section,
+.theme-system .task-item,
+.theme-system .project-card {
+  border-color: #334155;
+}
+
+.theme-dark .task-copy p,
+.theme-dark .project-card-copy p,
+.theme-system .task-copy p,
+.theme-system .project-card-copy p {
+  color: #cbd5e1;
+}
+
+.theme-dark .task-form input,
+.theme-dark .task-form textarea,
+.theme-dark .task-form select,
+.theme-dark .project-form input,
+.theme-dark .project-form textarea,
+.theme-dark .project-form select,
+.theme-dark .filter-controls select,
+.theme-dark .search-field input,
+.theme-dark .settings-control select,
+.theme-system .task-form input,
+.theme-system .task-form textarea,
+.theme-system .task-form select,
+.theme-system .project-form input,
+.theme-system .project-form textarea,
+.theme-system .project-form select,
+.theme-system .filter-controls select,
+.theme-system .search-field input,
+.theme-system .settings-control select {
+  border-color: #475569;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.theme-dark .danger-outline-button,
+.theme-system .danger-outline-button {
+  background: transparent;
+}
+
+@media (prefers-color-scheme: dark) {
+  .theme-system .panel,
+  .theme-system .stat-card {
+    background: #1e293b;
+    color: #e2e8f0;
+  }
+}
+
 .task-form {
   display: grid;
   gap: 10px;
@@ -807,6 +944,19 @@ button {
   .project-card {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .settings-section {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .settings-control {
+    width: 100%;
+  }
+
+  .settings-actions {
+    justify-content: flex-start;
   }
 
   .section-heading {

@@ -78,6 +78,13 @@ A task management dashboard built with React. It provides a focused workspace fo
 - `/settings` provides the Settings destination
 - Sidebar links use React Router and show the active route
 
+### Settings
+
+- Persist a Light mode, Dark mode, or System preference theme
+- Choose the default priority for newly created tasks
+- Clear all tasks with confirmation
+- Reset tasks, projects, and settings with confirmation
+
 ## Project structure
 
 ```bash
