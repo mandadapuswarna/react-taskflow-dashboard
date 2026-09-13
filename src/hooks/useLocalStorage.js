@@ -15,6 +15,7 @@ export function useLocalStorage(key, initialValue) {
             description: "",
             dueDate: "",
             createdAt: new Date().toISOString(),
+            projectId: null,
             ...task,
             status: task.status === "Done" ? "Completed" : task.status,
           }))

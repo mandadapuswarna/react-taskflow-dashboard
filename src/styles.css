@@ -439,6 +439,13 @@ button {
   overflow-wrap: anywhere;
 }
 
+.project-task-count {
+  display: block;
+  margin-top: 10px;
+  color: #64748b;
+  font-weight: 600;
+}
+
 .empty-state {
   display: grid;
   justify-items: center;
@@ -498,6 +505,11 @@ button {
   color: #475569;
   font-size: 0.9rem;
   overflow-wrap: anywhere;
+}
+
+.task-project {
+  color: #2563eb;
+  font-weight: 600;
 }
 
 .status {

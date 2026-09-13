@@ -3,6 +3,7 @@ import EmptyState from "../EmptyState/EmptyState";
 
 export default function TaskList({
   tasks,
+  projects = [],
   onView,
   onEdit,
   onDelete,
@@ -18,6 +19,9 @@ export default function TaskList({
         <TaskCard
           key={task.id}
           task={task}
+          project={projects.find(
+            (project) => String(project.id) === String(task.projectId),
+          )}
           onView={onView}
           onEdit={onEdit}
           onDelete={onDelete}

@@ -4,6 +4,7 @@ import TaskList from "../components/TaskList/TaskList";
 
 export default function TasksPage({
   visibleTasks,
+  projects,
   taskDraft,
   onTaskDraftChange,
   onCreateTask,
@@ -15,6 +16,8 @@ export default function TasksPage({
   onStatusFilterChange,
   priorityFilter,
   onPriorityFilterChange,
+  projectFilter,
+  onProjectFilterChange,
   sortBy,
   onSortChange,
   filterOptions,
@@ -55,6 +58,7 @@ export default function TasksPage({
         <div className="create-task-panel-inner">
           <TaskForm
             task={taskDraft}
+            projects={projects}
             onChange={onTaskDraftChange}
             onSubmit={onCreateTask}
             submitLabel="Create task"
@@ -70,14 +74,24 @@ export default function TasksPage({
           onStatusFilterChange={onStatusFilterChange}
           priorityFilter={priorityFilter}
           onPriorityFilterChange={onPriorityFilterChange}
+          projectFilter={projectFilter}
+          onProjectFilterChange={onProjectFilterChange}
           sortBy={sortBy}
           onSortChange={onSortChange}
           statusOptions={filterOptions}
           priorityOptions={priorityOptions}
+          projectOptions={[
+            { value: "All Projects", label: "All Projects" },
+            ...projects.map((project) => ({
+              value: String(project.id),
+              label: project.name,
+            })),
+          ]}
           sortOptions={sortOptions}
         />
         <TaskList
           tasks={visibleTasks}
+          projects={projects}
           onView={onView}
           onEdit={onEdit}
           onDelete={onDelete}

@@ -15,9 +15,12 @@ import { useLocalStorage } from "./hooks/useLocalStorage";
 import {
   FILTER_OPTIONS,
   INITIAL_TASKS,
+  INITIAL_PROJECTS,
   PRIORITY_FILTER_OPTIONS,
+  PROJECT_FILTER_ALL,
   SORT_OPTIONS,
 } from "./utils/constants";
+import TaskForm from "./components/TaskForm/TaskForm";
 
 const createEmptyTask = () => ({
   title: "",
@@ -25,14 +28,17 @@ const createEmptyTask = () => ({
   priority: "Medium",
   dueDate: "",
   status: "Todo",
+  projectId: null,
 });
 
 export default function App() {
   const [tasks, setTasks] = useLocalStorage("taskflow-tasks", INITIAL_TASKS);
+  const [projects, setProjects] = useLocalStorage("taskflow-projects", INITIAL_PROJECTS);
   const [taskDraft, setTaskDraft] = useState(createEmptyTask);
   const [searchQuery, setSearchQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
   const [priorityFilter, setPriorityFilter] = useState("All");
+  const [projectFilter, setProjectFilter] = useState(PROJECT_FILTER_ALL);
   const [sortBy, setSortBy] = useState("Newest");
   const [editingTask, setEditingTask] = useState(null);
   const [taskToDelete, setTaskToDelete] = useState(null);
@@ -98,6 +104,19 @@ export default function App() {
     setToastMessage("Task deleted successfully");
   };
 
+  const deleteProject = (projectId) => {
+    setProjects((currentProjects) =>
+      currentProjects.filter((project) => project.id !== projectId),
+    );
+    setTasks((currentTasks) =>
+      currentTasks.map((task) =>
+        String(task.projectId) === String(projectId)
+          ? { ...task, projectId: null }
+          : task,
+      ),
+    );
+  };
+
   const visibleTasks = useMemo(() => {
     const normalizedQuery = searchQuery.trim().toLowerCase();
     const priorityRank = { Low: 1, Medium: 2, High: 3 };
@@ -110,8 +129,10 @@ export default function App() {
       const matchesStatus = statusFilter === "All" || task.status === statusFilter;
       const matchesPriority =
         priorityFilter === "All" || task.priority === priorityFilter;
+      const matchesProject =
+        projectFilter === PROJECT_FILTER_ALL || String(task.projectId) === projectFilter;
 
-      return matchesSearch && matchesStatus && matchesPriority;
+      return matchesSearch && matchesStatus && matchesPriority && matchesProject;
     });
 
     return [...matchingTasks].sort((firstTask, secondTask) => {
@@ -126,10 +147,13 @@ export default function App() {
       if (!secondTask.dueDate) return -1;
       return firstTask.dueDate.localeCompare(secondTask.dueDate);
     });
-  }, [priorityFilter, searchQuery, sortBy, statusFilter, tasks]);
+  }, [priorityFilter, projectFilter, searchQuery, sortBy, statusFilter, tasks]);
 
   const hasSearch = Boolean(searchQuery.trim());
-  const hasFilters = statusFilter !== "All" || priorityFilter !== "All";
+  const hasFilters =
+    statusFilter !== "All" ||
+    priorityFilter !== "All" ||
+    projectFilter !== PROJECT_FILTER_ALL;
   const emptyState = tasks.length === 0
     ? {
         title: "No tasks found",
@@ -144,8 +168,8 @@ export default function App() {
         }
       : hasFilters
         ? {
-            title: "No tasks match these filters",
-            message: "Try changing the selected status or priority.",
+            title: "No tasks match the selected filters",
+            message: "Try changing the status, priority, or project filter.",
           }
         : {
             title: "No tasks found",
@@ -199,6 +223,7 @@ export default function App() {
             element={
               <TasksPage
                 visibleTasks={visibleTasks}
+                projects={projects}
                 taskDraft={taskDraft}
                 onTaskDraftChange={setTaskDraft}
                 onCreateTask={addTask}
@@ -210,6 +235,8 @@ export default function App() {
                 onStatusFilterChange={setStatusFilter}
                 priorityFilter={priorityFilter}
                 onPriorityFilterChange={setPriorityFilter}
+                projectFilter={projectFilter}
+                onProjectFilterChange={setProjectFilter}
                 sortBy={sortBy}
                 onSortChange={setSortBy}
                 filterOptions={FILTER_OPTIONS}
@@ -222,7 +249,18 @@ export default function App() {
               />
             }
           />
-          <Route path="/projects" element={<ProjectsPage onNotify={setToastMessage} />} />
+          <Route
+            path="/projects"
+            element={
+              <ProjectsPage
+                projects={projects}
+                tasks={tasks}
+                onProjectsChange={setProjects}
+                onDeleteProject={deleteProject}
+                onNotify={setToastMessage}
+              />
+            }
+          />
           <Route path="/settings" element={<SettingsPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
@@ -244,6 +282,7 @@ export default function App() {
         {editingTask && (
           <TaskForm
             task={editingTask}
+            projects={projects}
             onChange={setEditingTask}
             onSubmit={saveTask}
             onCancel={() => setEditingTask(null)}

@@ -1,4 +1,4 @@
-export default function TaskCard({ task, onView, onEdit, onDelete }) {
+export default function TaskCard({ task, project, onView, onEdit, onDelete }) {
   const handleKeyDown = (event) => {
     if (event.key === "Enter" || event.key === " ") {
       event.preventDefault();
@@ -17,6 +17,7 @@ export default function TaskCard({ task, onView, onEdit, onDelete }) {
       <div className="task-copy">
         <strong>{task.title}</strong>
         {task.description && <p>{task.description}</p>}
+        {project && <small className="task-project">📁 {project.name}</small>}
         <small>
           {task.priority} priority{task.dueDate ? ` · Due ${task.dueDate}` : ""}
         </small>

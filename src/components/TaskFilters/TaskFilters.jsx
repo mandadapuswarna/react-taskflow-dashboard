@@ -10,6 +10,9 @@ export default function TaskFilters({
   statusOptions,
   priorityOptions,
   sortOptions,
+  projectFilter,
+  onProjectFilterChange,
+  projectOptions,
 }) {
   return (
     <div className="task-filters">
@@ -50,6 +53,19 @@ export default function TaskFilters({
           <select value={sortBy} onChange={(event) => onSortChange(event.target.value)}>
             {sortOptions.map((option) => (
               <option key={option}>{option}</option>
+            ))}
+          </select>
+        </label>
+        <label>
+          Project
+          <select
+            value={projectFilter}
+            onChange={(event) => onProjectFilterChange(event.target.value)}
+          >
+            {projectOptions.map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
             ))}
           </select>
         </label>

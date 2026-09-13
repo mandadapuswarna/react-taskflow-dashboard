@@ -1,6 +1,13 @@
 import { PRIORITY_OPTIONS, STATUS_OPTIONS } from "../../utils/constants";
 
-export default function TaskForm({ task, onChange, onSubmit, onCancel, submitLabel }) {
+export default function TaskForm({
+  task,
+  projects = [],
+  onChange,
+  onSubmit,
+  onCancel,
+  submitLabel,
+}) {
   return (
     <form className="task-form" onSubmit={onSubmit}>
       <input
@@ -46,6 +53,22 @@ export default function TaskForm({ task, onChange, onSubmit, onCancel, submitLab
           >
             {STATUS_OPTIONS.map((status) => (
               <option key={status}>{status}</option>
+            ))}
+          </select>
+        </label>
+        <label>
+          Project
+          <select
+            value={task.projectId ?? ""}
+            onChange={(event) =>
+              onChange({ ...task, projectId: event.target.value || null })
+            }
+          >
+            <option value="">No Project</option>
+            {projects.map((project) => (
+              <option key={project.id} value={project.id}>
+                {project.name}
+              </option>
             ))}
           </select>
         </label>

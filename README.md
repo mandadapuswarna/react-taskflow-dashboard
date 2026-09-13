@@ -26,6 +26,14 @@ A task management dashboard built with React. It provides a focused workspace fo
 - Persist projects automatically in browser `localStorage`
 - Project statuses: `Planning`, `Active`, and `Completed`
 
+### Task and project relationships
+
+- Assign a task to `No Project` or any saved project while creating or editing it
+- Show the assigned project on task cards
+- Filter tasks by `All Projects` or a specific project
+- Calculate each project's task count dynamically
+- Keep tasks when a project is deleted and reset their `projectId` to `null`
+
 ### Search, filters, and sorting
 
 - Search by task title or description

@@ -2,8 +2,6 @@ import { useState } from "react";
 import EmptyState from "../components/EmptyState/EmptyState";
 import Modal from "../components/Modal/Modal";
 import ProjectForm from "../components/ProjectForm/ProjectForm";
-import { useLocalStorage } from "../hooks/useLocalStorage";
-import { INITIAL_PROJECTS } from "../utils/constants";
 
 const createEmptyProject = () => ({
   name: "",
@@ -11,8 +9,13 @@ const createEmptyProject = () => ({
   status: "Planning",
 });
 
-export default function ProjectsPage({ onNotify }) {
-  const [projects, setProjects] = useLocalStorage("taskflow-projects", INITIAL_PROJECTS);
+export default function ProjectsPage({
+  projects,
+  tasks,
+  onProjectsChange,
+  onDeleteProject,
+  onNotify,
+}) {
   const [projectDraft, setProjectDraft] = useState(createEmptyProject);
   const [editingProject, setEditingProject] = useState(null);
   const [projectToDelete, setProjectToDelete] = useState(null);
@@ -22,7 +25,7 @@ export default function ProjectsPage({ onNotify }) {
     event.preventDefault();
     if (!projectDraft.name.trim()) return;
 
-    setProjects((currentProjects) => [
+    onProjectsChange((currentProjects) => [
       {
         ...projectDraft,
         id: Date.now(),
@@ -40,7 +43,7 @@ export default function ProjectsPage({ onNotify }) {
     event.preventDefault();
     if (!editingProject.name.trim()) return;
 
-    setProjects((currentProjects) =>
+    onProjectsChange((currentProjects) =>
       currentProjects.map((project) =>
         project.id === editingProject.id
           ? { ...editingProject, name: editingProject.name.trim() }
@@ -52,9 +55,7 @@ export default function ProjectsPage({ onNotify }) {
   };
 
   const deleteProject = () => {
-    setProjects((currentProjects) =>
-      currentProjects.filter((project) => project.id !== projectToDelete.id),
-    );
+    onDeleteProject(projectToDelete.id);
     setProjectToDelete(null);
     onNotify("Project deleted successfully");
   };
@@ -121,6 +122,11 @@ export default function ProjectsPage({ onNotify }) {
                     </span>
                   </div>
                   <p>{project.description || "No description provided."}</p>
+                  <small className="project-task-count">
+                    {tasks.filter(
+                      (task) => String(task.projectId) === String(project.id),
+                    ).length} Tasks
+                  </small>
                 </div>
                 <div className="task-actions">
                   <button
