@@ -12,7 +12,9 @@ A task management dashboard built with React. It provides a focused workspace fo
 - Delete tasks with a confirmation modal
 - Open a task details modal by clicking a task
 - View title, description, priority, status, created date, and due date
-- Persist tasks in browser local storage
+- Persist tasks in browser `localStorage` after every create, edit, and delete
+- Restore saved tasks automatically after a page refresh
+- Synchronize task changes across browser tabs using the `storage` event
 - Migrate legacy `Done` statuses to `Completed`
 
 ### Search, filters, and sorting
@@ -65,7 +67,7 @@ The application is composed from focused components:
 - `TaskList` renders the visible task collection
 - `TaskCard` displays task details and CRUD actions
 - `Modal` provides reusable edit and delete dialogs
-- `useLocalStorage` persists and normalizes task data
+- `useLocalStorage` persists, restores, normalizes, and synchronizes task data
 - `constants.js` centralizes status, priority, sorting, and initial task values
 
 ## State management
