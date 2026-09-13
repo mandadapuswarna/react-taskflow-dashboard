@@ -1,15 +1,16 @@
 import { useEffect, useMemo, useState } from "react";
+import { Navigate, Route, Routes } from "react-router-dom";
 import "./styles.css";
 
 import Sidebar from "./components/Sidebar/Sidebar";
 import Header from "./components/Header/Header";
-import Dashboard from "./components/Dashboard/Dashboard";
-import TaskForm from "./components/TaskForm/TaskForm";
-import TaskFilters from "./components/TaskFilters/TaskFilters";
-import TaskList from "./components/TaskList/TaskList";
 import TaskDetails from "./components/TaskDetails/TaskDetails";
 import Modal from "./components/Modal/Modal";
 import Toast from "./components/Toast/Toast";
+import DashboardPage from "./pages/DashboardPage";
+import TasksPage from "./pages/TasksPage";
+import ProjectsPage from "./pages/ProjectsPage";
+import SettingsPage from "./pages/SettingsPage";
 
 import { useLocalStorage } from "./hooks/useLocalStorage";
 import {
@@ -185,62 +186,40 @@ export default function App() {
 
       <main className="main-content">
         <Header onMenuToggle={() => setIsSidebarOpen(true)} />
-        <Dashboard stats={stats} />
-
-        <section className="panel">
-          <div className="section-heading">
-            <div>
-              <p className="eyebrow">Workspace</p>
-              <h2>Tasks</h2>
-            </div>
-            <div className="section-actions">
-              <span className="task-count">{visibleTasks.length} shown</span>
-              <button
-                type="button"
-                className="primary-button new-task-button"
-                aria-expanded={isCreateFormOpen}
-                aria-controls="create-task-panel"
-                onClick={() => setIsCreateFormOpen((isOpen) => !isOpen)}
-              >
-                {isCreateFormOpen ? "Close" : "+ New task"}
-              </button>
-            </div>
-          </div>
-          <div
-            id="create-task-panel"
-            className={`create-task-panel ${isCreateFormOpen ? "is-open" : ""}`}
-            aria-hidden={!isCreateFormOpen}
-          >
-            <div className="create-task-panel-inner">
-              <TaskForm
-                task={taskDraft}
-                onChange={setTaskDraft}
-                onSubmit={addTask}
-                submitLabel="Create task"
+        <Routes>
+          <Route path="/" element={<DashboardPage tasks={tasks} stats={stats} />} />
+          <Route
+            path="/tasks"
+            element={
+              <TasksPage
+                visibleTasks={visibleTasks}
+                taskDraft={taskDraft}
+                onTaskDraftChange={setTaskDraft}
+                onCreateTask={addTask}
+                isCreateFormOpen={isCreateFormOpen}
+                onToggleCreateForm={() => setIsCreateFormOpen((isOpen) => !isOpen)}
+                searchQuery={searchQuery}
+                onSearchChange={setSearchQuery}
+                statusFilter={statusFilter}
+                onStatusFilterChange={setStatusFilter}
+                priorityFilter={priorityFilter}
+                onPriorityFilterChange={setPriorityFilter}
+                sortBy={sortBy}
+                onSortChange={setSortBy}
+                filterOptions={FILTER_OPTIONS}
+                priorityOptions={PRIORITY_FILTER_OPTIONS}
+                sortOptions={SORT_OPTIONS}
+                emptyState={emptyState}
+                onView={setSelectedTask}
+                onEdit={setEditingTask}
+                onDelete={setTaskToDelete}
               />
-            </div>
-          </div>
-          <TaskFilters
-            searchQuery={searchQuery}
-            onSearchChange={setSearchQuery}
-            statusFilter={statusFilter}
-            onStatusFilterChange={setStatusFilter}
-            priorityFilter={priorityFilter}
-            onPriorityFilterChange={setPriorityFilter}
-            sortBy={sortBy}
-            onSortChange={setSortBy}
-            statusOptions={FILTER_OPTIONS}
-            priorityOptions={PRIORITY_FILTER_OPTIONS}
-            sortOptions={SORT_OPTIONS}
+            }
           />
-          <TaskList
-            tasks={visibleTasks}
-            onView={setSelectedTask}
-            onEdit={setEditingTask}
-            onDelete={setTaskToDelete}
-            emptyState={emptyState}
-          />
-        </section>
+          <Route path="/projects" element={<ProjectsPage />} />
+          <Route path="/settings" element={<SettingsPage />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
       </main>
 
       <Modal

@@ -75,10 +75,18 @@ button {
 }
 
 .nav-item {
+  display: block;
   background: transparent;
   color: rgba(255, 255, 255, 0.75);
   text-align: left;
   padding: 10px 12px;
+  text-decoration: none;
+}
+
+.nav-item.active,
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
 }
 
 .main-content {
@@ -87,7 +95,7 @@ button {
   padding: 40px;
   width: min(100%, 1280px);
   max-width: 1280px;
-  margin: auto;
+  margin: 0 auto;
 }
 
 .topbar {
@@ -113,6 +121,19 @@ button {
 .subtitle {
   margin: 8px 0 0;
   color: #64748b;
+}
+
+.page-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 20px;
+}
+
+.page-heading h1,
+.route-placeholder h1 {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 2.6rem);
 }
 
 .primary-button {
@@ -198,6 +219,39 @@ button {
 
 .panel {
   margin-top: 24px;
+}
+
+.recent-panel {
+  margin-top: 30px;
+}
+
+.recent-task-list {
+  display: grid;
+  gap: 4px;
+  margin-top: 14px;
+}
+
+.recent-task,
+.placeholder-row,
+.settings-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid #eef2f6;
+}
+
+.muted-copy {
+  color: #64748b;
+}
+
+.route-placeholder {
+  padding: 32px;
+}
+
+.route-placeholder .subtitle {
+  margin-bottom: 24px;
 }
 
 .task-form {
@@ -643,6 +697,16 @@ button {
     align-items: start;
   }
 
+  .page-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .page-heading .section-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
   .progress-heading {
     align-items: flex-start;
     flex-direction: column;
@@ -699,14 +763,14 @@ button {
     padding: 20px;
   }
 
+  .filter-controls {
+    grid-template-columns: 1fr;
+  }
+}
 
 @media (prefers-reduced-motion: reduce) {
   .sidebar,
   .sidebar-backdrop {
     transition: none;
-  }
-}
-  .filter-controls {
-    grid-template-columns: 1fr;
   }
 }

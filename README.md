@@ -53,6 +53,14 @@ A task management dashboard built with React. It provides a focused workspace fo
 - Display auto-dismissing toast notifications after task creation, updates, and deletion
 - Allow toast notifications to be dismissed manually
 
+### Navigation
+
+- `/` renders the Dashboard with statistics and recent tasks
+- `/tasks` renders the full task-management workspace
+- `/projects` provides the Projects destination
+- `/settings` provides the Settings destination
+- Sidebar links use React Router and show the active route
+
 ## Project structure
 
 ```bash
@@ -66,6 +74,11 @@ src/
 │   ├── TaskForm/
 │   ├── TaskFilters/
 │   └── Modal/
+├── pages/
+│   ├── DashboardPage.jsx
+│   ├── TasksPage.jsx
+│   ├── ProjectsPage.jsx
+│   └── SettingsPage.jsx
 │
 ├── hooks/
 │   └── useLocalStorage.js
@@ -92,6 +105,7 @@ The application is composed from focused components:
 - `Toast` provides reusable success notifications
 - `useLocalStorage` persists, restores, normalizes, and synchronizes task data
 - `constants.js` centralizes status, priority, sorting, and initial task values
+- Page components define the routed Dashboard, Tasks, Projects, and Settings views
 
 ## State management
 
@@ -103,6 +117,7 @@ The application is composed from focused components:
 - Vite
 - JavaScript
 - CSS
+- React Router
 
 ## Getting started
 
